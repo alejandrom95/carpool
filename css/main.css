@@ -1,0 +1,172 @@
+html, body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  /*margin-top: 100px;*/
+  /*margin-bottom: -100px;*/
+}
+html {
+
+}
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+#map {
+  /*height: 95%;*/
+  height: -o-calc(100% - 50px); /* opera */
+  height: -webkit-calc(100% - 50px); /* google, safari */
+  height: -moz-calc(100% - 50px); /* firefox */
+}
+.increase-map-width {
+  width: -o-calc(100%); /* opera */
+  width: -webkit-calc(100%); /* google, safari */
+  width: -moz-calc(100%); /* firefox */
+}
+.decrease-map-width {
+  width: -o-calc(100% - 240px); /* opera */
+  width: -webkit-calc(100% - 240px); /* google, safari */
+  width: -moz-calc(100% - 240px); /* firefox */
+}
+.controls {
+  margin-top: 0px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#search-box-origin-input,
+#search-box-destination-input,
+#create-box-origin-input,
+#create-box-destination-input,
+#edit-box-origin-input,
+#edit-box-destination-input,
+#origin-input,
+#destination-input{
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 0px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 200px;
+}
+
+#origin-input:focus,
+#destination-input:focus,
+#search-box-origin-input:focus,
+#search-box-destination-input:focus,
+#create-box-origin-input:focus,
+#create-box-destination-input:focus,
+#edit-box-origin-input:focus,
+#edit-box-destination-input:focus{
+  border-color: #4d90fe;
+}
+.pac-container {
+  /*margin-top: -100px;*/
+}
+#map-menu-button-image {
+  margin: -6px 3px 0px 0px;
+}
+#search-input {
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  width: 250px;
+  margin-top: 3px;
+}
+#search-input:focus {
+  outline: none;
+}
+#container-map-nav {
+  margin: 10px 0px 0px 10px;
+
+}
+#container-map-search {
+  /*margin: 10px 0px 0px 10px;*/
+  padding: 0px 10px;
+  background-color: white;
+}
+#container-search-ride ,
+#container-create-ride,
+#container-edit-ride{
+  background: rgb(240, 255, 255);
+  background: rgba(240, 255, 255, 0.7);
+  padding: 10px 25px 10px 10px;
+}
+#timepicker-search-minimum,
+#timepicker-search-maximum,
+#timepicker-create-minimum,
+#timepicker-create-maximum,
+#timepicker-edit-minimum,
+#timepicker-edit-maximum  {
+  width: 210px;
+}
+#slider-handle-search-origin,
+#slider-handle-search-destination,
+#slider-handle-create-origin,
+#slider-handle-create-destination {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+  }
+
+#container-side-menu-bar {
+  height: -o-calc(100% - 50px); /* opera */
+  height: -webkit-calc(100% - 50px); /* google, safari */
+  height: -moz-calc(100% - 50px); /* firefox */
+  position: absolute;
+  width: 240px;
+
+  background-color: black;
+  z-index: 10;
+  left: -240px;
+
+  text-align: center;
+  vertical-align: all;
+}
+.side-menu-button {
+  display: block;
+  color: white;
+}
+a .close-side-menu-button {
+  font-size: 30px;
+  text-decoration: none;
+  color: white;
+}
+.side-menu-button a{
+  font-size: 24px;
+  text-decoration: none;
+  color: white;
+}
+hr {
+   border-color: white;
+   margin-top: 2px;
+}
+/*#mode-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  margin-left: 12px;
+  padding: 5px 11px 0px 11px;
+}
+
+#mode-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}*/
