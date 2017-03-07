@@ -43,6 +43,17 @@ error_reporting(0);
     html {background-color: black;}
   </style>
 
+  <!-- google sign in -->
+  <script>
+    function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+  <meta name="google-signin-client_id" content="473326774931-juk0h7odee36c2kaj75anc7ou36tm0on.apps.googleusercontent.com">
+
 </head>
 
 <body style="background-color: #101010; padding-left: ">

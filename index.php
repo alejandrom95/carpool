@@ -15,32 +15,32 @@
     // console.log("terst");
     <?php
       if(isset($_SESSION['login_status'])){
-      $login_status = $_SESSION['login_status'];
-    }
-    else {
-      $login_status = "logged_out";
-    }
-      // echo 'alert("'.$login_status.'");';
-      if($login_status <> "logged_in") {
-        session_destroy();
-        // echo 'window.location = "http://492ateam1.bitnamiapp.com/login.php";';
-        echo 'window.location = "/login.php";';
-
+        $login_status = $_SESSION['login_status'];
       }
-      //get the login email of the logged in user
-      $login_email = $_SESSION['login_email'];
-      echo 'var login_email = "'.$login_email.'";';
-
-      // $connection = mysqli_connect('localhost:3306', 'root', 'btXFvI3ZotGt', 'app_carpool');//server connection
-      $db = new mysqli('localhost', 'root', '', 'app_carpool');//local connection 
-
-      if($connection->connect_errno > 0){
-        mysqli_close($connection);
-          die('Unable to connect to database');
+      else {
+        $login_status = "logged_out";
       }
-      
+        // echo 'alert("'.$login_status.'");';
+        if($login_status <> "logged_in") {
+          session_destroy();
+          // echo 'window.location = "http://492ateam1.bitnamiapp.com/login.php";';
+          echo 'window.location = "/login.php";';
 
-    ?>
+        }
+        //get the login email of the logged in user
+        $login_email = $_SESSION['login_email'];
+        echo 'var login_email = "'.$login_email.'";';
+
+        // $connection = mysqli_connect('localhost:3306', 'root', 'btXFvI3ZotGt', 'app_carpool');//server connection
+        $connection = new mysqli('localhost', 'root', '', 'app_carpool');//local connection 
+
+        if($connection->connect_errno > 0){
+          mysqli_close($connection);
+            die('Unable to connect to database');
+        }
+        
+
+      ?>
   </script>
   
   <!--CDN for bootstrap-->
@@ -56,6 +56,19 @@
   <link rel="stylesheet" href="/jquery-ui-custom/jquery-ui.theme.min.css">
   <!--for mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- google sign in -->
+  <script>
+    function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+  <meta name="google-signin-client_id" content="473326774931-juk0h7odee36c2kaj75anc7ou36tm0on.apps.googleusercontent.com">
+  
+
 </head>
 
 <body>

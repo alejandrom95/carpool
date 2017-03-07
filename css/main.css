@@ -1,19 +1,22 @@
 html, body {
-  position: relative;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: white;
+  background:url('/images/5-Infinite-White-Studio-Backdrops.jpg');
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size: 100% 100%;
   /*margin-top: 100px;*/
   /*margin-bottom: -100px;*/
-}
-html {
-
 }
 .navbar {
     margin-bottom: 0px;
     border-radius: 0px;
 }
+.navbar-inverse .navbar-brand{
+  
+  padding-top: 4px;
+
+}
+
+
 #map {
   /*height: 95%;*/
   height: -o-calc(100% - 50px); /* opera */
