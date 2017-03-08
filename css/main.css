@@ -1,8 +1,10 @@
 html, body {
+  height: 100%;
   background:url('/images/5-Infinite-White-Studio-Backdrops.jpg');
   background-repeat:no-repeat;
   background-position:center;
   background-size: 100% 100%;
+
   /*margin-top: 100px;*/
   /*margin-bottom: -100px;*/
 }
