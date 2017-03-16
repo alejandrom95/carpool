@@ -3,8 +3,8 @@
   
   // //make database connection 
   function make_connection () {
-    $db = mysqli_connect('localhost:3306', 'root', 'btXFvI3ZotGt', 'app_carpool');//server connection
-    // $db = new mysqli('localhost', 'root', '', 'app_carpool');//local connection
+    // $db = mysqli_connect('localhost:3306', 'root', 'btXFvI3ZotGt', 'app_carpool');//server connection
+    $db = new mysqli('localhost', 'root', '', 'app_carpool');//local connection
 
     if($db->connect_errno > 0){
       mysqli_close($db);

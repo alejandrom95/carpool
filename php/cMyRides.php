@@ -94,6 +94,9 @@ debugMsg($DEBUG_INFO,"target($target) action($action)");
 # Main logic
 if ($target == "message" && $action == "list")
 {
+////////////////////
+
+
 	$offeredRidesList   = $model->getOfferedRidesList($conn,$id);
 	$requestedRidesList = $model->getRequestedRidesList($conn,$id);
 	$offeredListNotOwned   = $model->getOfferedListNotOwned($conn,$id);

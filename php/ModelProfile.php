@@ -3,12 +3,35 @@ class ModelProfile
 {
 	public $DEBUG_INFO=0;
 
-
+	function getRating($dbConn,$userId)
+	{
+		$rows = array();
+		$sqlStmt = "
+			select 
+				ifnull(avg(rtg.rating),0) as rating
+			from
+				routes r
+				join ratings rtg 
+					on r.route_id = rtg.route_id
+			where
+				r.email = '$userId'
+			";
+		$sth = mysqli_query($dbConn,$sqlStmt);
+		while ($row = mysqli_fetch_assoc($sth))
+		{
+			$rows[] = $row;
+// $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
+		}
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+		return $rows[0]["rating"];
+	}
 
 	function getAccountCreationDate($conn, $email) {	
 		$rows = array();
 		$sqlStmt = "
 			select 
+				email,
 				first_name, 
 				last_name, 
 				bday, 
@@ -77,6 +100,35 @@ class ModelProfile
 		return $rows;
 	}
 
+	public function updateProfile($dbConn,$email,$fname,$lname,$bday,$pw)
+	{
+		$sqlStmt = "
+			update users set 
+				first_name='$fname',
+				last_name ='$lname',
+				bday      ='$bday',
+				update_date = now()
+			 where email = '$email' ";
+		if($pw != "") {
+			$sqlStmt = "
+				update users set 
+					first_name='$fname',
+					last_name ='$lname',
+					bday      ='$bday',
+					update_date = now(),
+					password = '$pw'
+				 where email = '$email' ";
+		}
+		
+#echo $sqlStmt."<br>";
+
+		$sth = mysqli_query($dbConn,$sqlStmt);
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+	}
+
+	
 }
 
 ?>

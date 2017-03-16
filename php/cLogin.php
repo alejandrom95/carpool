@@ -205,7 +205,7 @@ elseif ($target == "login" && $action == "twitter_login")
 		$model_login->go_to_carpool_page($twitter_email);
 	}
 	else {
-		$model_login->create_account_google($conn, $twitter_email, $twitter_first_name, $twitter_last_name);
+		$model_login->create_account_twitter($conn, $twitter_email, $twitter_first_name, $twitter_last_name);
 		$model_login->go_to_carpool_page($twitter_email);
 	}
 }

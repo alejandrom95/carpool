@@ -76,15 +76,21 @@
   </script> 
  
   <!-- ADD CONTENT HERE -->
-  <?php
-  	foreach ($accountCreationDate as $a) {
+		<form action="cProfile.php">
+			<input type="hidden" name="target" value="profile">
+			<input type="hidden" name="email" value="<?php print $accountCreationDate[0]['email']; ?>">
 
-			echo "First Name: ". $a['first_name'].
-				"<br>Last Name: ".$a['last_name'].
-				"<br>Birth Day (YYYY-MM-DD): ".$a['bday'].
-				"<br>Account Creation Date (YYYY-MM-DD): ".$a['create_date'];
-		}
-  ?>
+			<table>
+			<tr><td>Email:</td><td><?php print $accountCreationDate[0]['email']; ?></td></tr>
+			<tr><td>First Name:</td><td><input type="text" name="fname" value="<?php print $accountCreationDate[0]['first_name']; ?>"></td></tr>
+			<tr><td>Last Name:</td><td><input type="text" name="lname" value="<?php print $accountCreationDate[0]['last_name']; ?>"></td></tr>
+			<tr><td>Birthday (YYYY-MM-DD):</td><td><input type="text" name="bday" value="<?php print $accountCreationDate[0]['bday']; ?>"></td></tr>
+      <tr><td>Update Password:</td><td><input type="password" name="pw"></td></tr>
+			<tr><td>Account Creation Dae (YYYY-MM-DD): </td><td> <?php print $accountCreationDate[0]['create_date']; ?></td></tr>
+      <tr><td>Rating: </td><td> <?php echo $userRating[0]['rating']; ?></td></tr>
+			<tr><td></td><td><input type="submit" name="action" value="Save"></td></tr>
+			</table>
+		</form>
 
 
   <div class = "col-sm-12">

@@ -49,56 +49,52 @@ function completeRide($dbConn,$route_id_value,$radio_status_value){
 }
 function setRideCompleted($dbConn,$routeId,$email_value)
 {
-	$sqlStmt = "
-		insert into messages
-		(
-			route_id,
-			thread_name,
-			username,
-			message_text
-		)
-		select
-			distinct
-			r.route_id,
-			m.thread_name,
-			r.email,
-			'temp' as message_text
-		from
-			routes r
-			join messages m
-				on m.route_id = r.route_id
-			join passenger_list pl
-				on r.route_id = pl.route_id 
-				and m.thread_name = pl.username
-		where
-			r.route_id = $routeId
-			and r.status not in ('COMPLETED','CLOSED')
+	// $sqlStmt = "
+	// 	insert into messages
+	// 	(
+	// 		route_id,
+	// 		thread_name,
+	// 		username,
+	// 		message_text
+	// 	)
+	// 	select
+	// 		distinct
+	// 		r.route_id,
+	// 		m.thread_name,
+	// 		r.email,
+	// 		'temp' as message_text
+	// 	from
+	// 		routes r
+	// 		join messages m
+	// 			on m.route_id = r.route_id
+	// 		join passenger_list pl
+	// 			on r.route_id = pl.route_id 
+	// 			and m.thread_name = pl.username
+	// 	where
+	// 		r.route_id = $routeId
+	// 		and r.status not in ('COMPLETED','CLOSED')
 
-	";
-	$sth = mysqli_query($dbConn,$sqlStmt);
-	mysqli_free_result($sth);
-	mysqli_next_result($dbConn);
-
-
-	$sqlStmt = "
-		update messages set 
-			message_text = concat(
-			'This ride has completed.  Thank you for riding. Please rate the driver: 
-			<a href= \"cManageRating.php?target=rating&action=rate&thread_name=',thread_name,'&message_id=',message_id,'&route_id=$routeId&rating=1&id=myloggedinid\">1 </a>
-			<a href= \"cManageRating.php?target=rating&action=rate&thread_name=',thread_name,'&message_id=',message_id,'&route_id=$routeId&rating=2&id=myloggedinid\"> 2 </a>
-			<a href= \"cManageRating.php?target=rating&action=rate&thread_name=',thread_name,'&message_id=',message_id,'&route_id=$routeId&rating=3&id=myloggedinid\"> 3 </a>
-			<a href= \"cManageRating.php?target=rating&action=rate&thread_name=',thread_name,'&message_id=',message_id,'&route_id=$routeId&rating=4&id=myloggedinid\"> 4 </a>
-			<a href= \"cManageRating.php?target=rating&action=rate&thread_name=',thread_name,'&message_id=',message_id,'&route_id=$routeId&rating=5&id=myloggedinid\"> 5</a>'
-			)
-		where 
-			route_id = $routeId
-			and message_text = 'temp'
-	";
-	$sth = mysqli_query($dbConn,$sqlStmt);
-	mysqli_free_result($sth);
-	mysqli_next_result($dbConn);
+	// ";
+	// $sth = mysqli_query($dbConn,$sqlStmt);
+	// mysqli_free_result($sth);
+	// mysqli_next_result($dbConn);
 
 	updateRideStatus($dbConn,$routeId,"COMPLETED");
+
+	$sqlStmt = "
+		update passenger_list 
+		set 
+			driver_needs_rating = true,
+			passenger_needs_rating = true
+
+		where 
+			route_id = $routeId
+	";
+	$sth = mysqli_query($dbConn,$sqlStmt);
+	mysqli_free_result($sth);
+	mysqli_next_result($dbConn);
+
+	
 }
 function updateRideStatus($dbConn,$routeId,$status)
 {
