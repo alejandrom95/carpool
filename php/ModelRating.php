@@ -113,6 +113,59 @@ $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
 			echo "$pMsg<br>";
 		}
 	}
+
+	public function checkPassengerNeedsRating($dbConn,$email)
+	{
+		$rows = array();
+		////////////////////////////////////////////////////////////may have to change p.passenger_needs_rating depending on final word choice
+		$sqlStmt = "
+			select p.username, p.route_id 
+			from 
+				routes r
+				left join passenger_list p
+					on p.route_id = r.route_id
+			where 
+				r.email = '$email'
+				and r.status = 'COMPLETED'
+				and p.passenger_needs_rating = true;
+		";
+// echo $sqlStmt."<br>";
+		$sth = mysqli_query($dbConn,$sqlStmt);
+		while ($row = mysqli_fetch_assoc($sth))
+		{
+			$rows[] = $row;
+		}
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+		return $rows;
+	}
+	public function checkDriverNeedsRating($dbConn,$email)
+	{
+		$rows = array();
+		////////////////////////////////////////////////////////////may have to change p.driver_needs_rating depending on final word choice
+		$sqlStmt = "
+			select r.email, r.route_id 
+			from 
+				routes r
+				left join passenger_list p
+					on p.route_id = r.route_id
+			where 
+				p.username = '$email'
+				and p.driver_needs_rating = true
+		";
+// echo $sqlStmt."<br>";
+		$sth = mysqli_query($dbConn,$sqlStmt);
+		while ($row = mysqli_fetch_assoc($sth))
+		{
+			$rows[] = $row;
+		}
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+		return $rows;
+	}
+
 }
 
 ?>

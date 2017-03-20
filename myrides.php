@@ -1,6 +1,8 @@
 <?php
   // session_start();
 error_reporting(0);
+
+require_once ('vendor/autoload.php');
 ?>
 <!doctype html>
 
@@ -54,12 +56,98 @@ error_reporting(0);
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
   <meta name="google-signin-client_id" content="473326774931-juk0h7odee36c2kaj75anc7ou36tm0on.apps.googleusercontent.com">
 
+
+  <!-- default styles -->
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/kartik-v/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+
+  <!-- optionally if you need to use a theme, then include the theme CSS file as mentioned below -->
+  <link href="/vendor/kartik-v/bootstrap-star-rating/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
+
+  <!-- important mandatory libraries -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+  <script src="/vendor/kartik-v/bootstrap-star-rating/js/star-rating.js" type="text/javascript"></script>
+
+  <!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
+  <script src="/vendor/kartik-v/bootstrap-star-rating/themes/krajee-svg/theme.js"></script>
+
+  <!-- optionally if you need translation for your language then include locale file as mentioned below -->
+  <script src="/vendor/kartik-v/bootstrap-star-rating/js/locales/<lang>.js"></script>
+
 </head>
 
 <body style="background-color: #101010; padding-left: ">
 	<header>
    		<div id = "includeHeader"></div>
  	</header>
+
+  <script>
+    var 
+  </script>
+  <?php
+  foreach($passengerNeedsRatingList as $rating) {
+    $pieces = explode("@", $rating[username]);
+    $username = $pieces[0];
+    echo '
+      <div id="p-ratings-modal-'.$rating[route_id].'-'.$username.'" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+              <h4 class="modal-title">Submit a Rating<span class="name-modal"></span></h4>
+            </div>
+            <div class="modal-body">
+              <h1>Route ID: '.$rating[route_id].'</h1>
+              <h2>Passenger Username: '.$rating[username].'</h2>
+              <input id="p-rating-input-'.$rating[route_id].'-'.$username.'" name="rating-input" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+              <button id="p-send-rating-'.$rating[route_id].'-'.$username.'" type="button" class="btn btn-primary">Submit Rating</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <script>
+        $("#p-rating-input-'.$rating[route_id].'-'.$username.'").rating();
+      </script>
+    ';
+  }
+  foreach($driverNeedsRatingList as $rating) {
+    $pieces = explode("@", $rating[email]);
+    $username = $pieces[0];
+    echo '
+      <div id="d-ratings-modal-'.$rating[route_id].'-'.$username.'" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+              <h4 class="modal-title">Submit a Rating<span class="name-modal"></span></h4>
+            </div>
+            <div class="modal-body">
+              <h1>Route ID: '.$rating[route_id].'</h1>
+              <h2>Driver Username: '.$rating[email].'</h2>
+              <input id="d-rating-input-'.$rating[route_id].'-'.$username.'" name="rating-input" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+              <button id="d-send-rating-'.$rating[route_id].'-'.$username.'" type="button" class="btn btn-primary">Submit Rating</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <script>
+        $("#d-rating-input-'.$rating[route_id].'-'.$username.'").rating();
+      </script>
+    ';
+  }
+
+  ?>
+
+
+
   <div id="message-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -624,10 +712,70 @@ error_reporting(0);
               alert("Message Sent");
           });//end ajax post
       });
+        $(document).ready(function() {
+          <?php
+            foreach($passengerNeedsRatingList as $rating) {
+              $pieces = explode("@", $rating[username]);
+              $username = $pieces[0];
+              echo '
+              $("#p-ratings-modal-'.$rating[route_id].'-'.$username.'").modal({
+                backdrop: "static"
+              });
+              $("#p-send-rating-'.$rating[route_id].'-'.$username.'").click(function() {
+                var ratingInt = parseInt(document.getElementById("p-rating-input-'.$rating[route_id].'-'.$username.'").value);
+                // alert(ratingInt);
+                $.post("/ajax_php/update_rating.php",
+                {
+                    target: "rating",
+                    action: "passenger",
+                    id: "'.$login_email.'",
+                    route_id: '.$rating[route_id].',
+                    person_rated_id: "'.$rating[username].'",
+                    rating: ratingInt
+                }, function(data){
+                    alert("rating submitted");
+                    $("#p-ratings-modal-'.$rating[route_id].'-'.$username.'").modal("hide");
+                });//end ajax post
+                
+              });
+              ';
+            }
+            foreach($driverNeedsRatingList as $rating) {
+              $pieces = explode("@", $rating[email]);
+              $username = $pieces[0];
+              echo '
+              $("#d-ratings-modal-'.$rating[route_id].'-'.$username.'").modal({
+                backdrop: "static"
+              });
+              $("#d-send-rating-'.$rating[route_id].'-'.$username.'").click(function() {
+                var ratingInt = parseInt(document.getElementById("d-rating-input-'.$rating[route_id].'-'.$username.'").value);
+                // alert(ratingInt);
+                $.post("/ajax_php/update_rating.php",
+                {
+                    target: "rating",
+                    action: "driver",
+                    id: "'.$login_email.'",
+                    route_id: '.$rating[route_id].',
+                    person_rated_id: "'.$rating[email].'",
+                    rating: ratingInt
+                }, function(data){
+                    alert("rating submitted");
+                    $("#d-ratings-modal-'.$rating[route_id].'-'.$username.'").modal("hide");
+                });//end ajax post
+                
+              });
+              ';
+            }
+          ?>
+        });
     </script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+
 </body>
 
 </html>

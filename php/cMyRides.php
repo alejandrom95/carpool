@@ -5,6 +5,7 @@ error_reporting(0);
 require_once("DBConn.php");
 require_once("ModelMyRides.php");
 require_once("ModelMyRides2.php");
+require_once("ModelRating.php");
 
 function debugMsg($debugLevel,$pMsg)
 {
@@ -37,6 +38,7 @@ $db    = new DBConn();
 $conn  = $db->connect();
 $model = new ModelMyRides();
 $model2= new ModelMyRides2();
+$modelR = new ModelRating();
 
 
 $target="";
@@ -54,9 +56,9 @@ $target = $_SESSION['target'];
 $action = $_SESSION['action'];
 
 # Filters
-$referrer = $_SERVER['HTTP_REFERRER'];
-$agent    = $_SERVER['HTTP_USER_AGENT'];
-$remoteIp = $_SERVER['REMOTE_ADDR'];
+// $referrer = $_SERVER['HTTP_REFERRER'];
+// $agent    = $_SERVER['HTTP_USER_AGENT'];
+// $remoteIp = $_SERVER['REMOTE_ADDR'];
 
 # Set local variables from url values
 if (isset($_POST['id']) )
@@ -94,6 +96,9 @@ debugMsg($DEBUG_INFO,"target($target) action($action)");
 # Main logic
 if ($target == "message" && $action == "list")
 {
+	$passengerNeedsRatingList = $modelR->checkPassengerNeedsRating($conn,$id);
+	$driverNeedsRatingList = $modelR->checkDriverNeedsRating($conn,$id);
+
 ////////////////////
 
 
