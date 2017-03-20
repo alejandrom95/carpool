@@ -92,6 +92,32 @@
 			</table>
 		</form>
 
+    <form>
+
+    <form class="form-inline">
+    <div class="input-group mb-2 mr-sm-2 mb-sm-9">
+      <label class="sr-only" for="inlineFormInput">First Name</label>
+      <input type="text" class="form-control" id="inlineFormInput" value="<?php print $accountCreationDate[0]['first_name']; ?>">
+     </div>
+      <label class="sr-only" for="inlineFormInputGroup">Last name</label>
+      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <input type="text" class="form-control" id="inlineFormInputGroup" value="<?php print $accountCreationDate[0]['last_name']; ?>">
+      </div>  
+     <div class="input-group mb-2 mr-sm-2 mb-sm-9">
+      <label class="sr-only" for="inlineFormInput">Birthday</label>
+      <input type="text" class="form-control" id="inlineFormInput" value="<?php print $accountCreationDate[0]['bday']; ?>">
+     </div>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-9">
+      <label class="sr-only" for="inlineFormInput">Account Creation Date</label>
+      <input type="text" class="form-control" id="inlineFormInput" value="<?php print $accountCreationDate[0]['create_date']; ?>">
+     </div>
+
+     
+     
+     </div>     
+    </form>
+</form>
+
 
   <div class = "col-sm-12">
     <div class="panel panel-default">
