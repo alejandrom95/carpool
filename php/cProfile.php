@@ -65,7 +65,8 @@ if ($target == "profile" && $action == "display")
 	$accountCreationDate = $modelP->getAccountCreationDate($conn, $email);
 	$participatedAsDriverRidesList = $modelP->getParticipatedAsDriverRidesList($conn, $email);
 	$participatedAsPassengerRidesList = $modelP->getParticipatedAsPassengerRidesList($conn, $email);
-	$userRating = $modelP->getRating($conn, $email);
+	$userRatingDriver = $modelP->getRating($conn, $email,'DRIVER');
+	$userRatingPassenger = $modelP->getRating($conn, $email,'PASSENGER');
 	if($accountCreationDate == '') {
 		echo 'error getting creation date';
 	}

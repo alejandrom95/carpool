@@ -3,24 +3,47 @@ class ModelProfile
 {
 	public $DEBUG_INFO=0;
 
-	function getRating($dbConn,$userId)
+// 	function getRating($dbConn,$userId)
+// 	{
+// 		$rows = array();
+// 		$sqlStmt = "
+// 			select 
+// 				ifnull(avg(rtg.rating),0) as rating
+// 			from
+// 				routes r
+// 				join ratings rtg 
+// 					on r.route_id = rtg.route_id
+// 			where
+// 				r.email = '$userId'
+// 			";
+// 		$sth = mysqli_query($dbConn,$sqlStmt);
+// 		while ($row = mysqli_fetch_assoc($sth))
+// 		{
+// 			$rows[] = $row;
+// // $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
+// 		}
+// 		mysqli_free_result($sth);
+// 		mysqli_next_result($dbConn);
+// 		return $rows[0]["rating"];
+// 	}
+	function getRating($dbConn,$userId,$ratingType)
 	{
 		$rows = array();
 		$sqlStmt = "
 			select 
 				ifnull(avg(rtg.rating),0) as rating
 			from
-				routes r
-				join ratings rtg 
-					on r.route_id = rtg.route_id
+				ratings rtg 
 			where
-				r.email = '$userId'
+				rtg.username_rated  = '$userId'
+				and rtg.rating_type = upper('$ratingType')
 			";
+// echo "sqlStmt($sqlStmt)<br>";
 		$sth = mysqli_query($dbConn,$sqlStmt);
 		while ($row = mysqli_fetch_assoc($sth))
 		{
 			$rows[] = $row;
-// $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
+// $this->debugMsg($this->DEBUG_INFO,"::rating(".$row["rating"].")");
 		}
 		mysqli_free_result($sth);
 		mysqli_next_result($dbConn);

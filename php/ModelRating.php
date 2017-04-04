@@ -19,27 +19,27 @@ class ModelRating
 		}
 	}
 
-	public function addRating($dbConn,$routeId,$userName,$rating)
-	{
-		$sqlStmt = "insert into ratings
-			(
-				route_id,
-				username_passenger,
-				rating
-			)
-			values
-			(
-				$routeId,
-				'$userName',
-				$rating
-			)";
-// echo "sqlStmt($sqlStmt)<br>";
+// 	public function addRating($dbConn,$routeId,$userName,$rating)
+// 	{
+// 		$sqlStmt = "insert into ratings
+// 			(
+// 				route_id,
+// 				username_passenger,
+// 				rating
+// 			)
+// 			values
+// 			(
+// 				$routeId,
+// 				'$userName',
+// 				$rating
+// 			)";
+// // echo "sqlStmt($sqlStmt)<br>";
 
-		$sth = mysqli_query($dbConn,$sqlStmt);
+// 		$sth = mysqli_query($dbConn,$sqlStmt);
 
-		mysqli_free_result($sth);
-		mysqli_next_result($dbConn);
-	}
+// 		mysqli_free_result($sth);
+// 		mysqli_next_result($dbConn);
+// 	}
 
 	public function updateRatingMessage($dbConn,$msgId)
 	{
@@ -82,29 +82,29 @@ class ModelRating
 		return $status;
 	}
 
-	public function getRating($dbConn,$userId)
-	{
-		$rows = array();
-		$sqlStmt = "
-			select 
-				ifnull(avg(rtg.rating),0) as rating
-			from
-				routes r
-				join ratings rtg 
-					on r.route_id = rtg.route_id
-			where
-				r.email = '$userId'
-			";
-		$sth = mysqli_query($dbConn,$sqlStmt);
-		while ($row = mysqli_fetch_assoc($sth))
-		{
-			$rows[] = $row;
-$this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
-		}
-		mysqli_free_result($sth);
-		mysqli_next_result($dbConn);
-		return $rows[0]["rating"];
-	}
+// 	public function getRating($dbConn,$userId)
+// 	{
+// 		$rows = array();
+// 		$sqlStmt = "
+// 			select 
+// 				ifnull(avg(rtg.rating),0) as rating
+// 			from
+// 				routes r
+// 				join ratings rtg 
+// 					on r.route_id = rtg.route_id
+// 			where
+// 				r.email = '$userId'
+// 			";
+// 		$sth = mysqli_query($dbConn,$sqlStmt);
+// 		while ($row = mysqli_fetch_assoc($sth))
+// 		{
+// 			$rows[] = $row;
+// $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
+// 		}
+// 		mysqli_free_result($sth);
+// 		mysqli_next_result($dbConn);
+// 		return $rows[0]["rating"];
+// 	}
 
 	public function debugMsg($debugLevel,$pMsg)
 	{
@@ -164,6 +164,106 @@ $this->debugMsg($this->DEBUG_INFO,"::rating(".$row[rating].")");
 		mysqli_free_result($sth);
 		mysqli_next_result($dbConn);
 		return $rows;
+	}
+
+	public function addRating($dbConn,$routeId,$ratingType,$userName,$userNameRated,$rating)
+	{
+		$sqlStmt = "insert into ratings
+			(
+				route_id,
+				rating_type,
+				username,
+				username_rated,
+				rating
+			)
+			values
+			(
+				$routeId,
+				upper('$ratingType'),
+				'$userName',
+				'$userNameRated',
+				$rating
+			)";
+// echo "sqlStmt($sqlStmt)<br>";
+
+		$sth = mysqli_query($dbConn,$sqlStmt);
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+
+		if($ratingType === "driver") {
+			$sqlStmt = "
+			update passenger_list set
+			driver_needs_rating = 0
+			where route_id = $routeId and username = '$userName'";
+		}
+		else {
+			$sqlStmt = "
+			update passenger_list set
+			passenger_needs_rating = 0
+			where route_id = $routeId and username = '$userNameRated'";
+		}
+
+		$sth = mysqli_query($dbConn,$sqlStmt);
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+
+	}
+	public function getRating($dbConn,$userId,$ratingType)
+	{
+		$rows = array();
+		$sqlStmt = "
+			select 
+				ifnull(avg(rtg.rating),0) as rating
+			from
+				ratings rtg 
+			where
+				rtg.username_rated  = '$userId'
+				and rtg.rating_type = upper('$ratingType')
+			";
+// echo "sqlStmt($sqlStmt)<br>";
+		$sth = mysqli_query($dbConn,$sqlStmt);
+		while ($row = mysqli_fetch_assoc($sth))
+		{
+			$rows[] = $row;
+// $this->debugMsg($this->DEBUG_INFO,"::rating(".$row["rating"].")");
+		}
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+		return $rows[0]["rating"];
+	}
+	public function checkCloseRide($dbConn,$routeId)
+	{
+		$close = true;
+		$sqlStmt = " 
+			select * 
+			from passenger_list
+			where route_id = $routeId
+			and 
+			(driver_needs_rating = 1 or passenger_needs_rating = 1)
+		";
+
+		$sth = mysqli_query($dbConn,$sqlStmt);
+		if(mysqli_num_rows($sth) > 0) {
+			$close = false;
+		}
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
+
+		return $close;
+	}
+	public function updateRideStatus($dbConn,$routeId,$status)
+	{
+		$sqlStmt = " update routes set
+				status = upper('$status')
+			where route_id = $routeId ";
+
+		$sth = mysqli_query($dbConn,$sqlStmt);
+
+		mysqli_free_result($sth);
+		mysqli_next_result($dbConn);
 	}
 
 }

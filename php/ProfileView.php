@@ -74,9 +74,65 @@
       $("#includeHeader").load("/inserts/header.php");
     });
   </script> 
+
+       <div class="container" style="float:left;">
+
+      <form class="form-horizontal" style="float:left; padding:1%;">
+          <div class="form-group">
+            <label for="inputEmail" class="col-sm-3 control-label">E-Mail:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['email']; ?>" disabled>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">Account Created:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['create_date']; ?>" disabled>
+            </div>
+          </div> 
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">First Name:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['first_name']; ?>" >
+            </div>
+          </div> 
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">Last Name:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['last_name']; ?>" >
+            </div>
+          </div> 
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">Birthday:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['bday']; ?>" >
+            </div>
+          </div> 
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 control-label">Password:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['password']; ?>" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputDRating" class="col-sm-3 control-label">Driver Rating:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php echo $userRatingDriver[0]['rating']; ?>" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPRating" class="col-sm-3 control-label">Passenger Rating:</label>
+            <div class="col-sm-9">
+              <input class="form-control" id="disabledInput" type="text" value="<?php echo $userRatingPassenger[0]['rating']; ?>" disabled>
+            </div>
+          </div>        
+      </form>
+
+      </div>
  
   <!-- ADD CONTENT HERE -->
-		<form action="cProfile.php">
+		<!-- <form action="cProfile.php">
 			<input type="hidden" name="target" value="profile">
 			<input type="hidden" name="email" value="<?php print $accountCreationDate[0]['email']; ?>">
 
@@ -87,7 +143,20 @@
 			<tr><td>Birthday (YYYY-MM-DD):</td><td><input type="text" name="bday" value="<?php print $accountCreationDate[0]['bday']; ?>"></td></tr>
       <tr><td>Update Password:</td><td><input type="password" name="pw"></td></tr>
 			<tr><td>Account Creation Dae (YYYY-MM-DD): </td><td> <?php print $accountCreationDate[0]['create_date']; ?></td></tr>
-      <tr><td>Rating: </td><td> <?php echo $userRating[0]['rating']; ?></td></tr>
+ -->
+
+
+     
+      <!-- <label for="input-2" class="control-label">Rate This</label>
+      <input id="d-rating" name="d-rating" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1"> -->
+
+      <!-- <script>
+        // $("#d-rating").rating({displayOnly: "true"});
+        //  Number(Math.round(1.005+'e2')+'e-2');
+      </script> -->
+
+<!--       <tr><td>Driver Rating: </td><td> <?php echo $userRatingDriver[0]['rating']; ?></td></tr>
+      <tr><td>Passenger Rating: </td><td> <?php echo $userRatingPassenger[0]['rating']; ?></td></tr>
 			<tr><td></td><td><input type="submit" name="action" value="Save"></td></tr>
 			</table>
 		</form>
@@ -112,11 +181,13 @@
       <input type="text" class="form-control" id="inlineFormInput" value="<?php print $accountCreationDate[0]['create_date']; ?>">
      </div>
 
+
+
      
      
      </div>     
     </form>
-</form>
+</form> -->
 
 
   <div class = "col-sm-12">
