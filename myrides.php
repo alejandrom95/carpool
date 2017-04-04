@@ -733,7 +733,7 @@ require_once ('vendor/autoload.php');
                     person_rated_id: "'.$rating[username].'",
                     rating: ratingInt
                 }, function(data){
-                    alert("rating submitted");
+                    //alert(data);
                     $("#p-ratings-modal-'.$rating[route_id].'-'.$username.'").modal("hide");
                 });//end ajax post
                 
@@ -759,7 +759,7 @@ require_once ('vendor/autoload.php');
                     person_rated_id: "'.$rating[email].'",
                     rating: ratingInt
                 }, function(data){
-                    alert("rating submitted");
+                    //alert(data);
                     $("#d-ratings-modal-'.$rating[route_id].'-'.$username.'").modal("hide");
                 });//end ajax post
                 
