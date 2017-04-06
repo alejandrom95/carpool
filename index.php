@@ -39,7 +39,7 @@
             die('Unable to connect to database');
         }
         
-
+      $_SESSION['user_type'] = "PASSENGER";
       ?>
   </script>
   
