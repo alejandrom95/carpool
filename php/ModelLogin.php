@@ -23,23 +23,61 @@ class ModelLogin
 	}
 
 	function validate_login($connection, $email, $password) {
-		$statement = "select * from users where 
-				email = '$email' 
-				and password = '$password'
-				and is_facebook_user = 'N';";
-		$result = mysqli_query($connection, $statement);
-		if(mysqli_num_rows($result) == 1) {
-			mysqli_free_result($result);
+		$sqlStmt = "
+			SELECT password
+			FROM users
+			WHERE email = '$email'
+		";
+		$result = mysqli_query($connection,$sqlStmt);
+		print_r($sqlStmt);
+		echo "<br>";
+		print_r($result);
+		echo "<br>";
+		$pw = mysqli_fetch_row($result);
+		print_r($pw);
+		echo "<br>";
+		print_r($pw[0]);
+		echo "<br>";
+		print_r($password);
+		echo "<br>";
+		// $row = $result->fetch_array(MYSQLI_ASSOC);
+		// $row = mysqli_fetch_row($result);
+		// print_r($row);
+		// print_r($row['password']);
+		var_dump(password_verify($password, $pw[0]));
+		if (password_verify($password, $pw[0])) {
+		    mysqli_free_result($result);
 			mysqli_close($connection);
 			// go_to_carpool_page($email);
+			$_SESSION['user_type'] = "PASSENGER";
 			return true;
-		}
-		else {
-			mysqli_free_result($result);
+		} else {
+		    mysqli_free_result($result);
 			mysqli_close($connection);
 			// show_login_error_page();
 			return false;
 		}
+
+
+
+		// $statement = "select * from users where 
+		// 		email = '$email' 
+		// 		and password = '$password'
+		// 		and is_facebook_user = 'N';";
+		// $result = mysqli_query($connection, $statement);
+		// if(mysqli_num_rows($result) == 1) {
+		// 	mysqli_free_result($result);
+		// 	mysqli_close($connection);
+		// 	// go_to_carpool_page($email);
+		// 	$_SESSION['user_type'] = "PASSENGER";
+		// 	return true;
+		// }
+		// else {
+		// 	mysqli_free_result($result);
+		// 	mysqli_close($connection);
+		// 	// show_login_error_page();
+		// 	return false;
+		// }
 		// else {
 		// 	$statement_fb = "select * from users where 
 		// 		connected_facebook_email = '$email' 
@@ -85,6 +123,7 @@ class ModelLogin
 			date_default_timezone_set('US/Pacific');
 			$current_date_time = date("Y-m-d H:i:s");
 			// $connected_facebook_email = $email;
+			$password = password_hash($password, PASSWORD_DEFAULT);
 			$statement_insert = "INSERT INTO users (email, password,first_name, last_name, bday, drivers_license_number, connected_facebook_email, is_facebook_user, create_date, update_date) VALUES 
 				('$email', 
 				'$password', 
@@ -97,6 +136,7 @@ class ModelLogin
 				'$current_date_time', 
 				'$current_date_time');";
 			$resultC = mysqli_query($connection, $statement_insert);
+			$_SESSION['user_type'] = "PASSENGER";
 			// go_to_carpool_page($email);
 			return true;
 		}
@@ -124,6 +164,7 @@ class ModelLogin
 		$result = mysqli_query($connection, $statement_insert);
 		mysqli_close($connection);
 		// go_to_carpool_page($fb_email);
+		$_SESSION['user_type'] = "PASSENGER";
 		mysqli_free_result($result);
 	}
 
@@ -134,6 +175,7 @@ class ModelLogin
 			mysqli_free_result($result);
 			mysqli_close($connection);
 			// go_to_carpool_page($fb_email);
+			$_SESSION['user_type'] = "PASSENGER";
 			return true;
 		}
 		else {
@@ -164,6 +206,7 @@ class ModelLogin
 			'$current_date_time');";
 		$result = mysqli_query($connection, $statement_insert);
 		mysqli_close($connection);
+		$_SESSION['user_type'] = "PASSENGER";
 		// go_to_carpool_page($fb_email);
 		mysqli_free_result($result);
 	}
@@ -175,6 +218,7 @@ class ModelLogin
 			mysqli_free_result($result);
 			mysqli_close($connection);
 			// go_to_carpool_page($fb_email);
+			$_SESSION['user_type'] = "PASSENGER";
 			return true;
 		}
 		else {
@@ -205,6 +249,7 @@ class ModelLogin
 			'$current_date_time');";
 		$result = mysqli_query($connection, $statement_insert);
 		mysqli_close($connection);
+		$_SESSION['user_type'] = "PASSENGER";
 		// go_to_carpool_page($fb_email);
 		mysqli_free_result($result);
 	}
@@ -216,6 +261,7 @@ class ModelLogin
 			mysqli_free_result($result);
 			mysqli_close($connection);
 			// go_to_carpool_page($fb_email);
+			$_SESSION['user_type'] = "PASSENGER";
 			return true;
 		}
 		else {
@@ -226,8 +272,17 @@ class ModelLogin
 		// mysqli_free_result($result);
 	}
 //end twitter login/create account
+
+
+
+	function set_session($session_name, $session_value) {
+		if($session_name <> '') {
+			$_SESSION['$session_name'] = '$session_value';
+		}
+	}
 	
 
 }
-
+//$2y$10$czAo73afBgdjLR25.imjgOdrGzh0DLBBHUPbJYcuFHs/8i/mtOGLa
+//$2y$10$VogtjGylzsWmtrJnIGNQQuuljuv10HhYZpckeF6LLQ9S/sOlw4sPC
 ?>

@@ -77,7 +77,10 @@
 
        <div class="container" style="float:left;">
 
-      <form class="form-horizontal" style="float:left; padding:1%;">
+      <form action="cProfile.php" class="form-horizontal" style="float:left; padding:1%;">
+        <input type="hidden" name="target" value="profile">
+        <input type="hidden" name="email" value="<?php print $accountCreationDate[0]['email']; ?>">
+
           <div class="form-group">
             <label for="inputEmail" class="col-sm-3 control-label">E-Mail:</label>
             <div class="col-sm-9">
@@ -94,25 +97,31 @@
           <div class="form-group">
             <label for="inputPassword" class="col-sm-3 control-label">First Name:</label>
             <div class="col-sm-9">
-              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['first_name']; ?>" >
+              <input class="form-control" name="fname" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['first_name']; ?>" >
             </div>
           </div> 
           <div class="form-group">
             <label for="inputPassword" class="col-sm-3 control-label">Last Name:</label>
             <div class="col-sm-9">
-              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['last_name']; ?>" >
+              <input class="form-control" name="lname" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['last_name']; ?>" >
             </div>
           </div> 
           <div class="form-group">
             <label for="inputPassword" class="col-sm-3 control-label">Birthday:</label>
             <div class="col-sm-9">
-              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['bday']; ?>" >
+              <input class="form-control" name="bday" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['bday']; ?>" >
             </div>
           </div> 
           <div class="form-group">
             <label for="inputPassword" class="col-sm-3 control-label">Password:</label>
             <div class="col-sm-9">
-              <input class="form-control" id="disabledInput" type="text" value="<?php print $accountCreationDate[0]['password']; ?>" >
+              <input class="form-control" name="pw" id="disabledInput" type="text" value="" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputDriversLicense" class="col-sm-3 control-label">Driver's License:</label>
+            <div class="col-sm-9">
+              <input class="form-control" name="dl" id="disabledInput" type="text" value="" >
             </div>
           </div>
           <div class="form-group">
@@ -126,7 +135,12 @@
             <div class="col-sm-9">
               <input class="form-control" id="disabledInput" type="text" value="<?php echo $userRatingPassenger[0]['rating']; ?>" disabled>
             </div>
-          </div>        
+          </div>
+          <div class="form-group">
+            <div class="col-sm-9">
+              <input type="submit" name="action" value="Save">
+            </div>
+          </div>          
       </form>
 
       </div>

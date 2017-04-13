@@ -1,7 +1,7 @@
 
 <!-- <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script> -->
-<script type="text/javascript">
+<script>
   function logOut() {
       
     // console.log('User signed out.');
@@ -15,6 +15,7 @@
     // console.log("test");
     $.ajax( "../ajax_php/sign_out.php" )
       .done(function(data) {
+        console.log(data);
         console.log("successful logout");
         // $('#twitter').html(data);
         window.location = "/login.php";
@@ -25,7 +26,9 @@
     document.cookie = "PHPSESSID=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
   
   }
+
 </script>
+
 <nav class="navbar navbar-inverse " style = "margin-bottom: 0px">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +50,7 @@
           error_reporting(0);
           session_start();
           if($_SESSION['login_email'] <> "") {
-            echo '<li><a href="php/cProfile.php?target=profile&action=display&email='.$_SESSION["login_email"].'">Profile</a></li>';
+            echo '<li><a href="/php/cProfile.php?target=profile&action=display&email='.$_SESSION["login_email"].'">Profile</a></li>';
           }
         ?>
       </ul>

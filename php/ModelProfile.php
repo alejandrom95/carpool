@@ -123,7 +123,7 @@ class ModelProfile
 		return $rows;
 	}
 
-	public function updateProfile($dbConn,$email,$fname,$lname,$bday,$pw)
+	public function updateProfile($dbConn,$email,$fname,$lname,$bday,$pw,$dlicense)
 	{
 		$sqlStmt = "
 			update users set 
@@ -132,7 +132,21 @@ class ModelProfile
 				bday      ='$bday',
 				update_date = now()
 			 where email = '$email' ";
-		if($pw != "") {
+		if($pw != "" && $dlicense != "") {
+			$pw = password_hash($pw, PASSWORD_DEFAULT);
+			$dlicense = password_hash($dlicense, PASSWORD_DEFAULT);
+			$sqlStmt = "
+				update users set 
+					first_name='$fname',
+					last_name ='$lname',
+					bday      ='$bday',
+					update_date = now(),
+					password = '$pw',
+					drivers_license_number = '$dlicense'
+				 where email = '$email' ";
+		}
+		else if($pw != "") {
+			$pw = password_hash($pw, PASSWORD_DEFAULT);
 			$sqlStmt = "
 				update users set 
 					first_name='$fname',
@@ -142,6 +156,18 @@ class ModelProfile
 					password = '$pw'
 				 where email = '$email' ";
 		}
+		else if($dlicense != "") {
+			$dlicense = password_hash($dlicense, PASSWORD_DEFAULT);
+			$sqlStmt = "
+				update users set 
+					first_name='$fname',
+					last_name ='$lname',
+					bday      ='$bday',
+					update_date = now(),
+					drivers_license_number = '$dlicense'
+				 where email = '$email' ";
+		}
+
 		
 #echo $sqlStmt."<br>";
 
