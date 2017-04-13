@@ -100,6 +100,17 @@
       <input id = "my-rides-button" type="submit" value="My Rides">
     </form>
   </div>
+   
+   <div id="container-user-type" style="background-color: black; padding: 10px;">
+    
+        <fieldset>
+        <!-- <legend>Search for a Ride: </legend> -->
+        <label id="radio-requested-label" for="radio-requested">Passenger</label>
+        <input type="radio" name="radio-search-box"  class = "input-radio-search" id="radio-requested" value="REQUEST" required>
+        <label id="radio-offered-label" for="radio-offered">Driver</label>
+        <input type="radio" name="radio-search-box" class = "input-radio-search" id="radio-offered" value="OFFER">
+      </fieldset>
+  </div>
   <!-- this section has the initial search bar, search ride, and create ride all
        in the top left corner of the map -->
   <div id = "container-map-nav">
@@ -120,13 +131,7 @@
       <h3>Search for a Ride</h3>
 
       <!-- radio buttons to search for a requested or offered ride -->
-      <fieldset>
-        <!-- <legend>Search for a Ride: </legend> -->
-        <label id="radio-requested-label" for="radio-requested">Requested</label>
-        <input type="radio" name="radio-search-box"  class = "input-radio-search" id="radio-requested" value="REQUEST" required>
-        <label id="radio-offered-label" for="radio-offered">Offered</label>
-        <input type="radio" name="radio-search-box" class = "input-radio-search" id="radio-offered" value="OFFER">
-      </fieldset>
+    
 
       <!-- google maps input field for search:start location -->
       <div>
@@ -341,7 +346,9 @@
         var menu_container = document.getElementById('container-map-nav');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(menu_container);
         var user_menu_container = document.getElementById('container-user-menu');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(user_menu_container);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(user_menu_container);
+		var user_type_container = document.getElementById('container-user-type');
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(user_type_container);
 
         var search_input = document.getElementById('search-input');
         var search_autocomplete = new google.maps.places.Autocomplete(search_input);
