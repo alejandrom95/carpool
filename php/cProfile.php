@@ -55,6 +55,10 @@ if (isset($_GET['pw']) )
 {
 	$pw =$_GET['pw'];
 }
+if (isset($_GET['dl']) )
+{
+	$driversLicense =$_GET['dl'];
+}
 
 # Main logic
 debugMsg($DEBUG_INFO,"Profile Page");
@@ -77,7 +81,7 @@ if ($target == "profile" && $action == "display")
 elseif ($target == "profile" && $action == "save")
 {
 	debugMsg($DEBUG_INFO,"Profile Page - SAVE");
-	$modelP->updateProfile($conn,$email,$firstName,$lastName,$birthday,$pw);
+	$modelP->updateProfile($conn,$email,$firstName,$lastName,$birthday,$pw,$driversLicense);
 	print "Profile data updated successfully.<br>";
 }
 

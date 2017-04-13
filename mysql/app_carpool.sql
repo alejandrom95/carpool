@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2017 at 01:43 AM
+-- Generation Time: Apr 14, 2017 at 01:53 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `routes` (
   `create_date` datetime NOT NULL,
   `status` varchar(25) NOT NULL,
   `type` varchar(10) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `routes`
@@ -163,7 +163,8 @@ INSERT INTO `routes` (`route_id`, `email`, `start_address`, `start_lat`, `start_
 (4, 'user1@gmail.com', 'California State University Long Beach, Long Beach, CA, United States', 33.783782, -118.114082, 'ChIJQ_aCKdgx3YARqy3HziZ_3B8', 'STAPLES Center, South Figueroa Street, Los Angeles, CA', 34.04295, -118.267123, 'ChIJWXNsX7jHwoARaduMfEQ0HuU', '2016-10-07 10:00:00', '2016-10-07 12:00:00', '2017-01-23 00:29:02', 'VISIBLE', 'OFFER'),
 (5, 'user1@gmail.com', 'California State University Long Beach, Long Beach, CA, United States', 33.783782, -118.114082, 'ChIJQ_aCKdgx3YARqy3HziZ_3B8', 'STAPLES Center, South Figueroa Street, Los Angeles, CA', 34.04295, -118.267123, 'ChIJWXNsX7jHwoARaduMfEQ0HuU', '2016-10-07 10:00:00', '2016-10-07 12:00:00', '2017-03-06 19:55:42', 'COMPLETED', 'REQUEST'),
 (6, 'user1@gmail.com', 'Long Beach, CA, United States', 33.7700504, -118.19373949999999, 'ChIJWdeZQOjKwoARqo8qxPo6AKE', 'California State University Long Beach, Long Beach, CA, United States', 33.7838235, -118.11409040000001, 'ChIJQ_aCKdgx3YARqy3HziZ_3B8', '2017-03-08 20:34:00', '2017-03-08 23:34:00', '2017-03-08 20:34:38', 'VISIBLE', 'REQUEST'),
-(7, 'user1@gmail.com', 'Long Beach, CA, United States', 33.7700504, -118.19373949999999, 'ChIJWdeZQOjKwoARqo8qxPo6AKE', 'Long Beach Airport, Donald Douglas Drive, Long Beach, CA, United States', 33.8182652, -118.14454160000003, 'ChIJhQxDwTYy3YAR_ydWCFAr1wM', '2017-03-16 15:37:00', '2017-03-16 20:37:00', '2017-03-16 15:37:40', 'CLOSED', 'OFFER');
+(7, 'user1@gmail.com', 'Long Beach, CA, United States', 33.7700504, -118.19373949999999, 'ChIJWdeZQOjKwoARqo8qxPo6AKE', 'Long Beach Airport, Donald Douglas Drive, Long Beach, CA, United States', 33.8182652, -118.14454160000003, 'ChIJhQxDwTYy3YAR_ydWCFAr1wM', '2017-03-16 15:37:00', '2017-03-16 20:37:00', '2017-03-16 15:37:40', 'CLOSED', 'OFFER'),
+(8, 'user1@gmail.com', 'Long Beach, CA, United States', 33.7700504, -118.19373949999999, 'ChIJWdeZQOjKwoARqo8qxPo6AKE', 'Long Beach Airport, Long Beach, CA, United States', 33.8162213, -118.1506099, 'ChIJhQxDwTYy3YAR_ydWCFAr1wM', '0000-00-00 00:00:00', '2017-04-13 23:59:00', '2017-04-13 12:59:49', 'VISIBLE', 'REQUEST');
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `first_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) DEFAULT NULL,
   `bday` date DEFAULT NULL,
-  `drivers_license_number` varchar(40) DEFAULT NULL,
+  `drivers_license_number` varchar(100) DEFAULT NULL,
   `connected_facebook_email` varchar(100) NOT NULL,
   `is_facebook_user` varchar(1) NOT NULL,
   `create_date` datetime NOT NULL,
@@ -197,9 +198,11 @@ INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `bday`, `dr
 ('alejandrom060595@yahoo.com', '', 'Alejandro', 'Morales', '1998-01-01', '', 'alejandrom060595@yahoo.com', 'Y', '2017-02-21 01:48:44', '2017-02-21 01:48:44'),
 ('fernie255@yahoo.com', 'password', 'Fernando', 'Fajardo', '2000-01-01', '7ABCDEF', 'fernie255@yahoo.com', 'N', '2017-01-23 00:29:02', '2017-01-23 00:29:02'),
 ('test@test.com', 'a', 'a', 'a', '0001-01-01', '1', '', 'N', '2017-02-21 01:37:36', '2017-02-21 01:37:36'),
-('user1@gmail.com', 'password', 'first1', 'last1', '2017-01-23', '5ABC001', 'user1@gmail.com', 'N', '2017-01-23 00:29:02', '2017-03-15 18:08:13'),
+('user1@gmail.com', '$2y$10$sR9N8orqwnrB0snGdolh0ulLJAkstiPAN40dESmBp3JAD/joIgzb2', 'first1', 'last1', '2017-01-23', '$2y$10$MEqUmpCtRjStbaWa61QhN.RqDJgzWCdga', 'user1@gmail.com', 'N', '2017-01-23 00:29:02', '2017-04-13 11:02:36'),
 ('user2@gmail.com', 'password', 'first2', 'last2', '1996-01-01', '5ABC002', 'user2@gmail.com', 'N', '2017-01-23 00:29:02', '2017-01-23 00:29:02'),
-('user3@gmail.com', 'password', 'first2', 'last2', '1996-01-01', '5ABC002', 'user3@gmail.com', 'N', '2017-01-23 00:29:02', '2017-01-23 00:29:02');
+('user3@gmail.com', 'password', 'first2', 'last2', '1996-01-01', '5ABC002', 'user3@gmail.com', 'N', '2017-01-23 00:29:02', '2017-01-23 00:29:02'),
+('user4@gmail.com', '$2y$10$czAo73afBgdjLR25.imjgOdrGzh0DLBBHUPbJYcuFHs/8i/mtOGLa', 'a', 'a', '1111-01-01', '', '', 'N', '2017-04-13 03:46:19', '2017-04-13 03:46:19'),
+('user5@gmail.com', '$2y$10$bZ0/n.vlGLW1/U.kbdunNuDOq1eZchQU8ITL2AsLGetdSczDw0XGS', 'a', 'a', '1111-11-11', '', '', 'N', '2017-04-13 04:28:14', '2017-04-13 04:28:47');
 
 --
 -- Indexes for dumped tables
@@ -248,7 +251,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

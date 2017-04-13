@@ -14,13 +14,13 @@
     //user isn't logged in, add before loading anything unnecessary
     // console.log("terst");
     <?php
+    echo 'console.log("3: '. $_SESSION['login_status'].'");';
       if(isset($_SESSION['login_status'])){
         $login_status = $_SESSION['login_status'];
       }
       else {
         $login_status = "logged_out";
       }
-        // echo 'alert("'.$login_status.'");';
         if($login_status <> "logged_in") {
           session_destroy();
           // echo 'window.location = "http://492ateam1.bitnamiapp.com/login.php";';
@@ -38,8 +38,8 @@
           mysqli_close($connection);
             die('Unable to connect to database');
         }
+        // echo 'alert("'.$_SESSION['user_type'].'");';
         
-      $_SESSION['user_type'] = "PASSENGER";
       ?>
   </script>
   
@@ -100,17 +100,42 @@
       <input id = "my-rides-button" type="submit" value="My Rides">
     </form>
   </div>
-   
-   <div id="container-user-type" style="background-color: black; padding: 10px;">
+  <div id="container-user-type" style="background-color: black; padding: 10px;">
     
-        <fieldset>
-        <!-- <legend>Search for a Ride: </legend> -->
-        <label id="radio-requested-label" for="radio-requested">Passenger</label>
-        <input type="radio" name="radio-search-box"  class = "input-radio-search" id="radio-requested" value="REQUEST" required>
-        <label id="radio-offered-label" for="radio-offered">Driver</label>
-        <input type="radio" name="radio-search-box" class = "input-radio-search" id="radio-offered" value="OFFER">
-      </fieldset>
+        <!-- <fieldset id="fieldset-user-type">
+        <!-- <legend>Search for a Ride: </legend> - ->
+        <label id="radio-passenger-label" for="radio-requested">Passenger</label>
+        <input type="radio" name="radio-user-type-box"  class = "input-radio-user-type" id="radio-requested" value="PASSENGER" required>
+        <label id="radio-driver-label" for="radio-offered">Driver</label>
+        <input type="radio" name="radio-user-type-box" class = "input-radio-user-type" id="radio-offered" value="DRIVER">
+      </fieldset> -->
+      <input id="user-type-driver" type="button" name="user-type-driver" value="DRIVER">
+      <input id="user-type-passenger" type="button" name="user-type-passenger" value="PASSENGER">
+
   </div>
+
+  <script>
+  // $('#user-type-driver').click(function() {
+  //     alert("test");
+  //   });
+  // $(document).ready(function(){
+  //   $('#user-type-driver').click(function() {
+  //     alert("test");
+  //   });
+  //   // $("#fieldset-user-type").buttonset();
+
+  //   // $("input[name='radio']").change(function () {
+  //   //     alert("test");
+  //   // });
+  //   //   $('#radio-passenger-label').click(function() {
+  //   //   alert("Value of Radion: " + $("input[name='radio-user-type-box']:checked").val(););       
+  //   // });
+  // });
+    
+  </script>
+<!-- var radioValue = $("input[name='radio-user-type-box']:checked").val(); -->
+
+
   <!-- this section has the initial search bar, search ride, and create ride all
        in the top left corner of the map -->
   <div id = "container-map-nav">
@@ -131,7 +156,21 @@
       <h3>Search for a Ride</h3>
 
       <!-- radio buttons to search for a requested or offered ride -->
-    
+      <!-- <fieldset>
+        <label id="radio-requested-label" for="radio-requested">Requested</label>
+        <input type="radio" name="radio-search-box"  class = "input-radio-search" id="radio-requested" value="REQUEST" required>
+        <label id="radio-offered-label" for="radio-offered">Offered</label>
+        <input type="radio" name="radio-search-box" class = "input-radio-search" id="radio-offered" value="OFFER">
+      </fieldset> -->
+      <div id = "search-hidden-user-type"><input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="OFFER"></div>
+      <!-- <?php
+        if($_SESSION['user_type'] === "PASSENGER") {
+          echo '<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="OFFER">';
+        }
+        else if($_SESSION['user_type'] === "DRIVER") {
+          echo '<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="REQUEST">';
+        }
+      ?> -->
 
       <!-- google maps input field for search:start location -->
       <div>
@@ -188,12 +227,21 @@
       
       <h3>Create a Ride</h3>
       <!-- radio button to classify your ride as as offered or requested -->
-      <fieldset>
+      <!-- <fieldset>
         <label id="radio-request-label" for="radio-request">Request</label>
         <input type="radio" name="radio-create-box" id="radio-request" class = "input-radio-create" value="REQUEST" required>
         <label id="radio-offer-label" for="radio-offer">Offer</label>
         <input type="radio" name="radio-create-box" id="radio-offer" class = "input-radio-create" value="OFFER">
-      </fieldset>
+      </fieldset> -->
+      <div id = "create-hidden-user-type"><input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="REQUEST"></div>
+      <!-- <?php
+        if($_SESSION['user_type'] === "PASSENGER") {
+          echo '<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="REQUEST">';
+        }
+        else if($_SESSION['user_type'] === "DRIVER") {
+          echo '<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="OFFER">';
+        }
+      ?> -->
 
       <!-- google maps input field for create:start location -->
       <div>
@@ -346,8 +394,9 @@
         var menu_container = document.getElementById('container-map-nav');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(menu_container);
         var user_menu_container = document.getElementById('container-user-menu');
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(user_menu_container);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(user_menu_container);
-		var user_type_container = document.getElementById('container-user-type');
+        var user_type_container = document.getElementById('container-user-type');
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(user_type_container);
 
         var search_input = document.getElementById('search-input');
@@ -708,8 +757,8 @@
     <script type="text/javascript">
       $( "#date-search-origin" ).datepicker();
       $( "#date-create-origin" ).datepicker();
-      $( ".input-radio-search" ).checkboxradio();
-      $( ".input-radio-create" ).checkboxradio();
+      // $( ".input-radio-search" ).checkboxradio();
+      $( ".input-radio-user-type" ).checkboxradio();
     </script>
 
 <!-- ----------------------------------------------------------------------------------------------------  -->
@@ -883,7 +932,8 @@
           directionsDisplay.setMap(null);
           directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
           directionsDisplay.setMap(map);
-          var radioValue = $("input[name='radio-search-box']:checked").val();
+          // var radioValue = $("input[name='radio-search-box']:checked").val();
+          var radioValue = document.getElementById("search-type").value;
           var originValue = document.getElementById("search-box-origin-input").value;
           var originSliderValue = $("#slider-search-origin" ).slider( "value" );
           var destinationValue = document.getElementById("search-box-destination-input").value;
@@ -963,7 +1013,8 @@
           var timeMaxValue = document.getElementById("timepicker-create-maximum").value;
           var timeWindowStart = getDateTimeFormat(dateValue, timeMinValue);
           var timeWindowEnd = getDateTimeFormat(dateValue, timeMaxValue);
-          var radioTypeValue = $("input[name='radio-create-box']:checked").val();
+          // var radioTypeValue = $("input[name='radio-create-box']:checked").val();
+          var radioTypeValue = document.getElementById("create-type").value;
 
           // ajax post function to add rides to database
           $.post("ajax_php/create_ride.php/",
@@ -1036,6 +1087,36 @@
         });
       }); 
     </script>    
+    <script>
+      $('#user-type-driver').click(function() {
+          // ajax post function to add rides to database
+          $.post("ajax_php/valid_driver.php/",
+          {
+              email: login_email,
+              user_type: "DRIVER"
+          }, function(data){
+                alert("Switched to Driver mode.");
+                $('#search-hidden-user-type').html('<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="REQUEST">');
+                $('#create-hidden-user-type').html('<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="OFFER">');
+
+                // location.reload();
+          });//end ajax post
+        });
+      $('#user-type-passenger').click(function() {
+          // ajax post function to add rides to database
+          $.post("ajax_php/valid_driver.php/",
+          {
+              email: login_email,
+              user_type: "PASSENGER"
+          }, function(data){
+                alert("Switched to Passenger mode.");
+                $('#search-hidden-user-type').html('<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="OFFER">');
+                $('#create-hidden-user-type').html('<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="REQUEST">');
+
+          });//end ajax post
+        });
+      </script>
+
       
     <!-- Latest compiled and minified JavaScript needed for bootstrap-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
