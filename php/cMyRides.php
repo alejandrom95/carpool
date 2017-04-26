@@ -110,7 +110,7 @@ if ($target == "message" && $action == "list")
 	$requestedListOwned = $model->getRequestedListOwned($conn,$id);
 	mysqli_close($conn);
 	
-	include '../myrides.php';
+	include 'MyRidesView.php';
 }
 elseif ($target == "message" && $action == "create")
 {
