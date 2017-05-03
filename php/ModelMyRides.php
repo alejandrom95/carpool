@@ -218,27 +218,50 @@ class ModelMyRides
 		return $rows[0][email];
 	}
 
-	public function saveMessage($dbConn,$threadName,$username,$message,$routeId)
-	{
-		$sqlStmt = "insert into messages
-			(
-				route_id,
-				thread_name,
-				username,
-				message_text
-			)
-			values
-			(
-				$routeId,
-				'$threadName',
-				'$username',
-				'$message'
-			)";
-		$sth = mysqli_query($dbConn,$sqlStmt);
+	// public function saveMessage($dbConn,$threadName,$username,$message,$routeId)
+	// {
+	// 	$sqlStmt = "insert into messages
+	// 		(
+	// 			route_id,
+	// 			thread_name,
+	// 			username,
+	// 			message_text
+	// 		)
+	// 		values
+	// 		(
+	// 			$routeId,
+	// 			'$threadName',
+	// 			'$username',
+	// 			'$message'
+	// 		)";
+	// 	$sth = mysqli_query($dbConn,$sqlStmt);
 
-		mysqli_free_result($sth);
-		mysqli_next_result($dbConn);
-	}
+	// 	mysqli_free_result($sth);
+	// 	mysqli_next_result($dbConn);
+	// }
+	public function saveMessage($dbConn,$threadName,$username,$message,$routeId) 
+   { 
+      $sqlStmt = "insert into messages 
+         ( 
+            route_id, 
+            thread_name, 
+            username, 
+            message_text, 
+            create_date 
+         ) 
+         values 
+         ( 
+            $routeId, 
+            '$threadName', 
+            '$username', 
+            '$message', 
+            now() 
+         )"; 
+      $sth = mysqli_query($dbConn,$sqlStmt); 
+
+      mysqli_free_result($sth); 
+      mysqli_next_result($dbConn); 
+   }
 
 	public function changeRouteStatusComplete($dbConn,$routeId)
 	{

@@ -29,17 +29,17 @@ class ModelLogin
 			WHERE email = '$email'
 		";
 		$result = mysqli_query($connection,$sqlStmt);
-		print_r($sqlStmt);
-		echo "<br>";
-		print_r($result);
-		echo "<br>";
+		// print_r($sqlStmt);
+		// echo "<br>";
+		// print_r($result);
+		// echo "<br>";
 		$pw = mysqli_fetch_row($result);
-		print_r($pw);
-		echo "<br>";
-		print_r($pw[0]);
-		echo "<br>";
-		print_r($password);
-		echo "<br>";
+		// print_r($pw);
+		// echo "<br>";
+		// print_r($pw[0]);
+		// echo "<br>";
+		// print_r($password);
+		// echo "<br>";
 		// $row = $result->fetch_array(MYSQLI_ASSOC);
 		// $row = mysqli_fetch_row($result);
 		// print_r($row);

@@ -41,10 +41,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
   <!-- our site's css -->
   <link href="/css/main.css" rel="stylesheet">
+
   <!-- jquery ui css -->
   <link rel="stylesheet" href="/jquery-ui-custom/jquery-ui.min.css">
   <link rel="stylesheet" href="/jquery-ui-custom/jquery-ui.structure.min.css">
   <link rel="stylesheet" href="/jquery-ui-custom/jquery-ui.theme.min.css">
+
+  <link rel ="stylesheet" href="/css/bootstrap-overrides.css">
+
   <!--for mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- google sign in -->
