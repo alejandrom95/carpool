@@ -137,7 +137,7 @@ error_reporting(0);
                     echo '</div>';
                   }
 
-                  echo '<div id="requested-offered-'.$idThread.'" style="padding:5px;"><hr>';
+                  echo '<div id="requested-thread-'.$idThread.'" style="padding:5px;"><hr>';
                   echo '<button id="message-requested-thread-'.$item[route_id].'-'.$idThread.'" type="button" class="btn btn-primary" aria-label="send message">Send Message</button> 
                   <button id="accept-requested-thread-'.$item[route_id].'-'.$idThread.'" type="button" class="btn btn-success" aria-label="send message">Accept</button>
                         
@@ -157,7 +157,7 @@ error_reporting(0);
                     });//end ajax post
                   });
                   </script>
-                  Thread Name: '.$item[thread_name].'
+                  Thread Name: '.$item[thread_name].'<br>
                       <script>
                       $("#message-requested-thread-'.$item[route_id].'-'.$idThread.'").click(function() {
                         console.log("messages");
@@ -171,7 +171,7 @@ error_reporting(0);
                   //thread end
                   //message start
                   $messageText = preg_replace('/myloggedinid/',$login_email,$item[message_text]);
-                  echo '<div id="requested-messages-'.$item[route_id].'-'.$idMessage.'">
+                  echo '<div id="requested-messages-'.$item[route_id].'-'.$idMessage.'" class="pull-right">
                            From: '.$item[username].'<br>'.$messageText.'</div>';
                   //message end
                   //update
@@ -182,7 +182,7 @@ error_reporting(0);
                 else {
                   //message start
                   $messageText = preg_replace('/myloggedinid/',$login_email,$item[message_text]);
-                  echo '<div id="requested-messages-'.$item[route_id].'-'.$idMessage.'">
+                  echo '<div id="requested-messages-'.$item[route_id].'-'.$idMessage.'" class="pull-right">
                            From: '.$item[username].'<br>'.$messageText.'</div>';
                   //message end
                   //update

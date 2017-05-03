@@ -109,8 +109,121 @@ if ($target == "message" && $action == "list")
 	$offeredListOwned   = $model->getOfferedListOwned($conn,$id);
 	$requestedListOwned = $model->getRequestedListOwned($conn,$id);
 	mysqli_close($conn);
+
+
+
+
+	$array_requested_owned = [];
+  	// $requested_owned_current_route_id = -1;
+	foreach ($requestedRidesList as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	$array_requested_owned[$rid] = [];
+    	array_push($array_requested_owned[$rid], 
+        	[
+          		"route_id"=>$item[route_id],
+          		"start_address"=>$item[start_address],
+          		"end_address"=>$item[end_address],
+          		"date"=>$item[date]
+        	]
+  		);
+  	}
+  	// echo '<pre>';
+  	// print_r($array_requested_owned);
+  	// echo '</pre>';
+
+  	$array_offered_owned = [];
+  	// $requested_owned_current_route_id = -1;
+	foreach ($offeredRidesList as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	$array_offered_owned[$rid] = [];
+    	array_push($array_offered_owned[$rid], 
+        	[
+          		"route_id"=>$item[route_id],
+          		"start_address"=>$item[start_address],
+          		"end_address"=>$item[end_address],
+          		"date"=>$item[date]
+        	]
+  		);
+  	}
+  	// echo '<pre>';
+  	// print_r($array_offered_owned);
+  	// echo '</pre>';
+
+
+
+
+  	$requested_owned_current_route_id = -1;
+	foreach ($requestedListOwned as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	if ($requested_owned_current_route_id <> $item[route_id]) {
+      		
+      		array_push($array_requested_owned[$rid], $item);
+      		$requested_owned_current_route_id = $item[route_id];
+    	}
+    	else {
+      		array_push($array_requested_owned[$rid], $item);
+    	}
+  	}
+
+	$array_requested_not_owned = [];
+  	$requested_not_owned_current_route_id = -1;
+	foreach ($requestedListNotOwned as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	if ($requested_not_owned_current_route_id <> $item[route_id]) {
+      		$array_requested_not_owned[$rid] = [];
+      		array_push($array_requested_not_owned[$rid], 
+	        	[
+	          		"route_id"=>$item[route_id],
+	          		"start_address"=>$item[start_address],
+	          		"end_address"=>$item[end_address],
+	          		"date"=>$item[date]
+	        	]
+      		);
+      		array_push($array_requested_not_owned[$rid], $item);
+      		$requested_not_owned_current_route_id = $item[route_id];
+    	}
+    	else {
+      		array_push($array_requested_not_owned[$rid], $item);
+    	}
+  	}
+
+	$offered_owned_current_route_id = -1;
+	foreach ($offeredListOwned as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	if ($offered_owned_current_route_id <> $item[route_id]) {
+      		
+      		array_push($array_offered_owned[$rid], $item);
+      		$offered_owned_current_route_id = $item[route_id];
+    	}
+    	else {
+      		array_push($array_offered_owned[$rid], $item);
+    	}
+  	}
+
+	$array_offered_not_owned = [];
+  	$offered_not_owned_current_route_id = -1;
+	foreach ($offeredListNotOwned as $item) {
+    	$rid = 'route_id_'.$item[route_id];
+    	if ($offered_not_owned_current_route_id <> $item[route_id]) {
+      		$array_offered_not_owned[$rid] = [];
+      		array_push($array_offered_not_owned[$rid], 
+	        	[
+	          		"route_id"=>$item[route_id],
+	          		"start_address"=>$item[start_address],
+	          		"end_address"=>$item[end_address],
+	          		"date"=>$item[date]
+	        	]
+      		);
+      		array_push($array_offered_not_owned[$rid], $item);
+      		$offered_not_owned_current_route_id = $item[route_id];
+    	}
+    	else {
+      		array_push($array_offered_not_owned[$rid], $item);
+    	}
+  	}
+
 	
-	include 'MyRidesView.php';
+	include 'MyRidesView2.php';
 }
 elseif ($target == "message" && $action == "create")
 {
