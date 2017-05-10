@@ -1,13 +1,26 @@
 html, body {
   height: 100%;
-  background:url('/images/5-Infinite-White-Studio-Backdrops.jpg');
-  background-repeat:no-repeat;
+  background-image:url('/images/5-Infinite-White-Studio-Backdrops.jpg');
+  
+  background-repeat:repeat;
+  background-position:center;
+  background-size: 100% 100%;
+}
+/*html, body {
+  /*background-image: url("/images/5-Infinite-White-Studio-Backdrops.jpg"); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;* /
+  background-image:url('/images/5-Infinite-White-Studio-Backdrops.jpg');
+  
+  background-repeat:repeat;
   background-position:center;
   background-size: 100% 100%;
 
-  /*margin-top: 100px;*/
-  /*margin-bottom: -100px;*/
-}
+  /*margin-top: 100px;* /
+  /*margin-bottom: -100px;* /
+}*/
 .navbar {
     margin-bottom: 0px;
     border-radius: 0px;
@@ -162,6 +175,9 @@ a .close-side-menu-button {
 hr {
    border-color: white;
    margin-top: 2px;
+}
+.form-horizontal .control-label {
+  text-align:left;
 }
 /*#mode-selector {
   color: #fff;

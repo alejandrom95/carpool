@@ -62,6 +62,12 @@
   <header>
       <div id = "includeHeader"></div>
   </header>
+  <form id="reload-page" action="/php/cMyRides.php" method="post">
+    <input type="hidden" name="id" value=<?php echo '"'.$_SESSION['login_email'] .'"'; ?> >
+    <input type="hidden" name="target" value="message">
+    <input type="hidden" name="action" value="list">
+    <!-- <input id = "my-rides-button" type="submit" value="My Rides"> -->
+  </form>
   <div id="message-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -104,7 +110,11 @@
           foreach ($array_requested_owned as $ride) {
             $first_iteration = true;
             $second_iteration = true;
+            $current_route_id = '';
+            $current_thread_name = '';
             foreach ($ride as $item) {
+              $current_route_id = $item[route_id];
+              $current_thread_name = $item[thread_name];
               if($first_iteration) {
                 echo 
                 '<div id="requested-owned-header-'.$item[route_id].'">
@@ -199,10 +209,29 @@
 
             if($second_iteration === false) {
               echo '
-              <textarea id="message-modal-textarea" rows="4" cols="80" style="width: 80%;"></textarea>
-              <button id="send-message" type="button" class="btn btn-primary">Send Message</button>
+              <textarea id="message-modal-textarea-'.$current_route_id.'" rows="4" cols="80" style="width: 80%;"></textarea>
+              <button id="send-message-'.$current_route_id.'" type="button" class="btn btn-primary">Send Message</button>
               </div>
               </div>';
+
+              echo '<script>
+                $("#send-message-'.$current_route_id.'").on("click",function() {
+                  var sendMessageContent = $("#message-modal-textarea-'.$current_route_id.'").val();
+                  //alert(sendMessageContent);
+                  $.post("cMyRides.php",
+                    {
+                        target: "message",
+                        action: "save",
+                        route_id: '.$current_route_id.',
+                        message: sendMessageContent,
+                        thread_name: "'.$current_thread_name.'",
+                        id: "'.$login_email.'"
+                    }, function(data){
+                      $("#reload-page").submit();
+                    });//end ajax post
+                  //$("#reload-page").submit();
+                });
+              </script>';
 
             }
           }
@@ -213,7 +242,11 @@
           foreach ($array_requested_not_owned as $ride) {
             $first_iteration = true;
             $second_iteration = true;
+            $current_route_id = '';
+            $current_thread_name = '';
             foreach ($ride as $item) {
+              $current_route_id = $item[route_id];
+              $current_thread_name = $item[thread_name];
               if($first_iteration) {
                 echo 
                 '<div id="requested-not-owned-header-'.$item[route_id].'">
@@ -305,10 +338,27 @@
             }
             if($second_iteration === false) {
               echo '
-              <textarea id="message-modal-textarea" rows="4" cols="80" style="width: 80%;"></textarea>
-              <button id="send-message" type="button" class="btn btn-primary">Send Message</button>
+              <textarea id="message-modal-textarea-'.$current_route_id.'" rows="4" cols="80" style="width: 80%;"></textarea>
+              <button id="send-message-'.$current_route_id.'" type="button" class="btn btn-primary">Send Message</button>
               </div>
               </div>';
+              echo '<script>
+                $("#send-message-'.$current_route_id.'").on("click",function() {
+                  var sendMessageContent = $("#message-modal-textarea-'.$current_route_id.'").val();
+                  $.post("cMyRides.php",
+                    {
+                        target: "message",
+                        action: "save",
+                        route_id: '.$current_route_id.',
+                        message: sendMessageContent,
+                        thread_name: "'.$current_thread_name.'",
+                        id: "'.$login_email.'"
+                    }, function(data){
+                      $("#reload-page").submit();
+                    });//end ajax post
+                    //$("#reload-page").submit();
+                });
+              </script>';
 
             }
           }
@@ -333,7 +383,11 @@
           foreach ($array_offered_owned as $ride) {
             $first_iteration = true;
             $second_iteration = true;
+            $current_route_id = '';
+            $current_thread_name = '';
             foreach ($ride as $item) {
+              $current_route_id = $item[route_id];
+              $current_thread_name = $item[thread_name];
               if($first_iteration) {
                 echo 
                 '<div id="offered-owned-header-'.$item[route_id].'">
@@ -425,10 +479,28 @@
             }
             if($second_iteration === false) {
               echo '
-              <textarea id="message-modal-textarea" rows="4" cols="80" style="width: 80%;"></textarea>
-              <button id="send-message" type="button" class="btn btn-primary">Send Message</button>
+              <textarea id="message-modal-textarea-'.$current_route_id.'" rows="4" cols="80" style="width: 80%;"></textarea>
+              <button id="send-message-'.$current_route_id.'" type="button" class="btn btn-primary">Send Message</button>
               </div>
               </div>';
+
+              echo '<script>
+                $("#send-message-'.$current_route_id.'").on("click",function() {
+                  var sendMessageContent = $("#message-modal-textarea-'.$current_route_id.'").val();
+                  $.post("cMyRides.php",
+                    {
+                        target: "message",
+                        action: "save",
+                        route_id: '.$current_route_id.',
+                        message: sendMessageContent,
+                        thread_name: "'.$current_thread_name.'",
+                        id: "'.$login_email.'"
+                    }, function(data){
+                      $("#reload-page").submit();
+                    });//end ajax post
+                    //$("#reload-page").submit();
+                });
+              </script>';
 
             }
           }
@@ -439,7 +511,11 @@
           foreach ($array_offered_not_owned as $ride) {
             $first_iteration = true;
             $second_iteration = true;
+            $current_route_id = '';
+            $current_thread_name = '';
             foreach ($ride as $item) {
+              $current_route_id = $item[route_id];
+              $current_thread_name = $item[thread_name];
               if($first_iteration) {
                 echo 
                 '<div id="offered-not-owned-header-'.$item[route_id].'">
@@ -531,10 +607,28 @@
             }
             if($second_iteration === false) {
               echo '
-              <textarea id="message-modal-textarea" rows="4" cols="80" style="width: 80%;"></textarea>
-              <button id="send-message" type="button" class="btn btn-primary">Send Message</button>
+              <textarea id="message-modal-textarea-'.$current_route_id.'" rows="4" cols="80" style="width: 80%;"></textarea>
+              <button id="send-message-'.$current_route_id.'" type="button" class="btn btn-primary">Send Message</button>
               </div>
               </div>';
+
+              echo '<script>
+                $("#send-message-'.$current_route_id.'").on("click",function() {
+                  var sendMessageContent = $("#message-modal-textarea-'.$current_route_id.'").val();
+                  $.post("cMyRides.php",
+                    {
+                        target: "message",
+                        action: "save",
+                        route_id: '.$current_route_id.',
+                        message: sendMessageContent,
+                        thread_name: "'.$current_thread_name.'",
+                        id: "'.$login_email.'"
+                    }, function(data){
+                      $("#reload-page").submit();
+                    });//end ajax post
+                    //$("#reload-page").submit();
+                });
+              </script>';
 
             }
           }
@@ -556,7 +650,7 @@
       $("#includeHeader").load("/inserts/header.php"); 
     });
     </script> 
-    <script>
+    <!-- <script>
       $('#send-message').on("click",function() {
         sendMessageContent = $('#message-modal-textarea').val();
         $.post("cMyRides.php",
@@ -571,7 +665,7 @@
               alert("Message Sent");
           });//end ajax post
       });
-    </script>
+    </script> -->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

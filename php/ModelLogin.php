@@ -44,7 +44,7 @@ class ModelLogin
 		// $row = mysqli_fetch_row($result);
 		// print_r($row);
 		// print_r($row['password']);
-		var_dump(password_verify($password, $pw[0]));
+		// var_dump(password_verify($password, $pw[0]));
 		if (password_verify($password, $pw[0])) {
 		    mysqli_free_result($result);
 			mysqli_close($connection);

@@ -178,7 +178,7 @@
         <input name="search-box-origin-input" id="search-box-origin-input" class="controls" type="text" placeholder="Enter an origin location" required>
         <!-- checkbox to start at current location
              Note: currently not working -->
-        <input id="checkbox-search" type="checkbox" name="checkbox-search-origin" value="startAtCurrentLocation">Start at current location (approximate)<br>
+        <!-- <input id="checkbox-search" type="checkbox" name="checkbox-search-origin" value="startAtCurrentLocation">Start at current location (approximate)<br> -->
         <!-- slider to adjust range to look for rides from origin -->
         <h4>Range (miles within)</h4>
         <div id="slider-search-origin">
@@ -249,7 +249,7 @@
         <input name="create-box-origin-input" id="create-box-origin-input" class="controls" type="text" placeholder="Enter an origin location" required>
         <!-- checkbox to start at current location
              Note: currently not working -->
-        <input id="checkbox-create" type="checkbox" name="checkbox-create-origin" value="startAtCurrentLocation">Start at current location (approximate)<br>
+        <!-- <input id="checkbox-create" type="checkbox" name="checkbox-create-origin" value="startAtCurrentLocation">Start at current location (approximate)<br> -->
         <!-- <h4>Range (miles within)</h4>
         <div id="slider-create-origin">
           <div id="slider-handle-create-origin" class="ui-slider-handle"></div>
@@ -1090,12 +1090,14 @@
     <script>
       $('#user-type-driver').click(function() {
           // ajax post function to add rides to database
+          $("#container-user-type").css("background-color",  "blue");
+          // $("container-user-type").css("padding", "10px");
           $.post("ajax_php/valid_driver.php/",
           {
               email: login_email,
               user_type: "DRIVER"
           }, function(data){
-                alert("Switched to Driver mode.");
+                // alert("Switched to Driver mode.");
                 $('#search-hidden-user-type').html('<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="REQUEST">');
                 $('#create-hidden-user-type').html('<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="OFFER">');
 
@@ -1104,12 +1106,14 @@
         });
       $('#user-type-passenger').click(function() {
           // ajax post function to add rides to database
+          $("#container-user-type").css("background-color",  "black");
+          // $("container-user-type").css("padding", "10px");
           $.post("ajax_php/valid_driver.php/",
           {
               email: login_email,
               user_type: "PASSENGER"
           }, function(data){
-                alert("Switched to Passenger mode.");
+                // alert("Switched to Passenger mode.");
                 $('#search-hidden-user-type').html('<input id = "search-type" type="hidden" name="radio-search-box"  class = "input-radio-search" value="OFFER">');
                 $('#create-hidden-user-type').html('<input id = "create-type" type="hidden" name="radio-create-box"  class = "input-radio-search" value="REQUEST">');
 
