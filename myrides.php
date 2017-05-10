@@ -2,16 +2,16 @@
   // session_start();
 error_reporting(0);
 
-require_once ('vendor/autoload.php');
+
 ?>
 <!doctype html>
 
 <html>
 <head>
-	<meta charset = "utf-8">
+  <meta charset = "utf-8">
   
-	<!--CDN for bootstrap-->
-	<title>Carpool::My Rides</title>
+  <!--CDN for bootstrap-->
+  <title>Carpool::My Rides</title>
   <script>
     //php code to check login status and redirect to login page if the 
     //user isn't logged in, add before loading anything unnecessary
@@ -28,11 +28,11 @@ require_once ('vendor/autoload.php');
         $conn  = $db->connect();
       ?>
   </script>
-	<link href="/css/main.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<!--for mobile devices-->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!--for mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <script>
     var sendMessageRideID = 0;
     var sendMessageContent = "";
@@ -46,43 +46,17 @@ require_once ('vendor/autoload.php');
   </style>
 
   <!-- google sign in -->
-  <script>
-    function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
-    }
-  </script>
-  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-  <meta name="google-signin-client_id" content="473326774931-juk0h7odee36c2kaj75anc7ou36tm0on.apps.googleusercontent.com">
 
-
-  <!-- default styles -->
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
-  <link href="/vendor/kartik-v/bootstrap-star-rating/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-
-  <!-- optionally if you need to use a theme, then include the theme CSS file as mentioned below -->
-  <link href="/vendor/kartik-v/bootstrap-star-rating/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
-
-  <!-- important mandatory libraries -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-  <script src="/vendor/kartik-v/bootstrap-star-rating/js/star-rating.js" type="text/javascript"></script>
-
-  <!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
-  <script src="/vendor/kartik-v/bootstrap-star-rating/themes/krajee-svg/theme.js"></script>
-
-  <!-- optionally if you need translation for your language then include locale file as mentioned below -->
-  <script src="/vendor/kartik-v/bootstrap-star-rating/js/locales/<lang>.js"></script>
 
 </head>
 
 <body style="background-color: #101010; padding-left: ">
-	<header>
-   		<div id = "includeHeader"></div>
- 	</header>
+  <header>
+      <div id = "includeHeader"></div>
+  </header>
 
   <script>
-    var 
+    // var 
   </script>
   <?php
   foreach($passengerNeedsRatingList as $rating) {
